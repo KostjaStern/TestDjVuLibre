@@ -283,7 +283,7 @@ static displaysubr disproutines[] =
 };
 
 // ---------- ROUTINES FOR DISPLAYING CHUNK STRUCTURE
-
+// DJVUDUMP uses this method
 static void
 display_chunks(ByteStream & out_str, IFFByteStream &iff,
 	       const GUTF8String &head, DjVmInfo djvminfo)
