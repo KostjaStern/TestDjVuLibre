@@ -152,29 +152,14 @@ usage()
   exit(1);
 }
 
-int main() // int argc, char **argv
+int main()
 {
-//    int argc = 4;
-//    char **argv = {"djvudump", "-o", "Abert_Mozart_book__1.txt", "Abert_Mozart_book__1.djvu"};
-
-  // DJVU_LOCALE;
-  // get output file name
-//   if (argc>2 && !strcmp(argv[1],"-o"))
-//     {
-//       outputfile = argv[2];
-//       argv += 2;
-//       argc -= 2;
-//     }
-
-    outputfile = "Abert_Mozart_book__1.txt";
+  outputfile = "Abert_Mozart_book__1.txt";
 
   // convert iff file name
-  GArray<GUTF8String> dargv(0, 0); // dargv(0, argc-1)
+  GArray<GUTF8String> dargv(0, 0);
   dargv[0]=GNativeString("Abert_Mozart_book__1.djvu");
-  // for(int i=0;i<argc;++i)
-  //  dargv[i]=GNativeString(argv[i]);
-//   if (argc <= 1)
-//     usage();
+  
   if (outputfile && !(outputf = fopen(outputfile,"w")))
     {
       DjVuPrintErrorUTF8("djvudump: Cannot open output file.\n");
@@ -182,12 +167,6 @@ int main() // int argc, char **argv
     }
   G_TRY
     {
-        // for (int i=1; i<argc; i++)
-        // {
-        // const GURL::Filename::UTF8 url(dargv[i]);
-        // display(url);
-        // }
-        
         const GURL::Filename::UTF8 url(dargv[0]);
         display(url);
     }

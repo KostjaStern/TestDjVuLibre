@@ -64,6 +64,7 @@
 #include "DataPool.h"
 #include "DjVmDir.h"
 #include "DjVuInfo.h"
+#include "BSByteStream.h"
 #include "IFFByteStream.h"
 
 
@@ -239,6 +240,24 @@ display_anno(ByteStream & out_str, IFFByteStream &iff,
    out_str.format( " (hyperlinks, etc.)");
 }
 
+// display ANTz chunk
+static void
+display_anno_z(ByteStream & out_str, IFFByteStream &iff,
+       GUTF8String, size_t size, DjVmInfo&, int)
+{
+  GP<ByteStream> gbsiff = BSByteStream::create(iff.get_bytestream());
+
+  GUTF8String data;
+  char ch;
+  size_t count = 0;
+  while(gbsiff->read(&ch, 1) == 1) {
+     data += ch;
+     count++;
+  }
+
+  out_str.format( "Page annotation size = %d, decompressed_size = %d, data = %s", size, count, (const char *) data);
+}
+
 static void
 display_text(ByteStream & out_str, IFFByteStream &iff,
 	     GUTF8String, size_t, DjVmInfo&, int)
@@ -276,7 +295,7 @@ static displaysubr disproutines[] =
   { "THUM.TH44", display_th44 },
   { "INCL", display_incl },
   { "ANTa", display_anno },
-  { "ANTz", display_anno },
+  { "ANTz", display_anno_z },
   { "TXTa", display_text },
   { "TXTz", display_text },
   { 0, 0 },
